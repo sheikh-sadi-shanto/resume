@@ -1,0 +1,57 @@
+{% extends 'profile.html' %}
+{% block css %}
+<style>
+    .cover{background-color: blue;}
+
+
+    @media only screen and (max-width: 600px) {
+  .cover {
+    width: 100%;
+  }
+}
+
+@media only screen and (min-width: 600px) {
+  .cover {
+    width: 75%;
+    margin: auto;
+  }
+}
+</style>
+{% endblock %}
+{% block post %}
+
+        <div class="row m-auto rounded-4   bg-light">
+          <h2 class="m-auto w-auto">{% if request.user %}{{user.username}}{% endif %}</h2>
+          <form class="form justify-content-center " action="" method="POST">
+            {% csrf_token %}
+            <label class="form-label " >Profile pic :</label>
+            <input  class="form-control w-50 m-auto " name="pro_pic" type="file"> <br>
+
+            <label class="form-label" >Cover pic :</label>
+            <input class="form-control w-50 m-auto " name="cover_pic" type="file" "> <br>
+
+            <label class="form-label" for="age">Age :</label>
+            <input class="form-control " name="eage" type="number" value="{{i.age}}"> <br>
+  
+            <label class="form-label" for="email">Email :</label>
+            <input class="form-control" type="email" name="eemail" {% for ii in user_detail %} value="{{ii.email}}" {% endfor %}> <br>
+  
+            <label class="form-label" for="number">Number :</label>
+            <input class="form-control" type="number" name="enumber" value="{{i.number}}"> <br>
+  
+            <label class="form-label" for="address">Address :</label>
+            <input class="form-control" type="address" name="eaddress" value="{{i.adress}}"> <br>
+  
+            <label class="form-label" for="number"> Describtion :</label>
+            <textarea class="form-control"  name="edescribtion" >{{i.describtion}}</textarea>
+            
+            <div class=" justify-content-center text-center"><button type="submit " class="btn btn-primary  m-1 mb-2">Save changes</button></div>
+          </form>
+          <form action="" method="POST">
+            {{proform}}
+          </form>
+        </div>
+
+          
+ 
+{% endblock %}

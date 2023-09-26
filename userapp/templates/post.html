@@ -1,0 +1,60 @@
+{% extends 'profile.html' %}
+{% load static %}
+{% block button %}
+<a class="btn btn-secondary text-lg-start" href="{%  url 'pro' %}" role="button" >Profile
+</a>
+{% endblock %}
+{% block post %}
+<!-- Button trigger modal -->
+<div class="w-0 text-center">
+  <h2>This feature is coming soon</h2>
+<button type="button" class="btn btn-primary bg-black " data-bs-toggle="modal" data-bs-target="#exampleModal">
+    Upload your post
+  </button></div>
+  
+  
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          this feature is coming soon
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+
+
+<div class=" cover shadow text-white" >
+      <div class="row text-black me-0 mb-1 ms-0">
+        <div class="col fw-bold pt-1">
+            Profile
+        </div>
+        <div class="text-end col fw-bold pt-1">
+            Setting
+        </div>
+      </div>
+            <div class="me-0 ms-0 row text-danger"> <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Illo, et corporis voluptates non explicabo quisquam, porro quaerat quo repellat veritatis odit ratione dolore atque enim animi ipsam dolorem dicta quam? Aliquam esse laboriosam tenetur nam odit inventore veniam, tempore maiores sed deleniti quos laudantium ratione voluptates id nulla perspiciatis quae earum reiciendis porro odio totam.</p></div>
+            <div class=" me-0 ms-0 row justify-content-center"> <img src="{% static 'app/images/product/4.jpg' %}" height="300" style="width: fit-content;" alt="ok"></div>
+            <div class=" me-0 ms-0 p-1 row fw-bold">
+                <a class="col text-black text-decoration-none" href="">Like</a> <a class="col text-black text-end text-decoration-none" href="">comments</a>
+            </div>
+        </div>
+      </div>
+</div>
+<div class="about-section ">
+</div>
+{% endblock %}

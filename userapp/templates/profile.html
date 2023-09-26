@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+{% load static%}
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Right Resume</title>
+    {% block css %}
+    <style>
+
+      
+    </style>
+    {% endblock %}
+    <link href="{% static 'app/css/bootstrap.css' %}" rel="stylesheet">
+    <link href="{% static 'app/css/font-awesome/css/all.min.css' %}" rel="stylesheet">
+    <link href="{% static 'app/css/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'app/css/aos.css' %}" rel="stylesheet">
+    <link href="{% static 'app/css/main.css' %}" rel="stylesheet">
+    <noscript>
+      <style type="text/css">
+        [data-aos] {
+            opacity: 1 !important;
+            transform: translate(0) scale(1) !important;
+        }
+      </style>
+    </noscript>
+  </head>
+  <body id="top">
+    <header class="d-print-none">
+      <div class="container">
+        <div class="py-3 clearfix row">
+          <div class="col text-lg-start ">
+            {% block button %}
+            <a class="btn btn-secondary text-lg-start" href="{%  url 'home' %}" role="button" >Home
+            </a>
+            {% endblock %}
+          </div>
+          <div class="site-nav col  ">
+            <nav role="navigation">
+              <ul class="nav justify-content-end">
+                <li class="nav-item"><a class="nav-link" href="https://www.facebook.com/ssheikhsadi?mibextid=ZbWKwL" title="Facebook"><i class="fab fa-facebook"></i><span class="menu-title sr-only">Facebook</span></a>
+                </li>
+                <li class="nav-item"><a class="nav-link" href="https://instagram.com/sheikhsadishantu?igshid=YWYwM2I1ZDdmOQ==" title="Instagram"><i class="fab fa-instagram"></i><span class="menu-title sr-only">Instagram</span></a>
+                </li>
+                <li class="nav-item"><a class="nav-link" href="https://github.com/sheikh-sadi-shanto" title="Github"><i class="fab fa-github"></i><span class="menu-title sr-only">Github</span></a>
+                </li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+      </div>
+    </header>
+    <div class="page-content ">
+      <div class="container justify-content-center">
+
+<div class="cover shadow-lg " >
+
+  {% block post %}
+
+  {% if detail %}
+  {% for i in detail %}
+  <div class="cover-bg p-3 p-lg-4 text-white" style="width: auto;height: fit-content;background: no-repeat;background-size:cover;background-image: url('{% if i.cover_pic %} {{i.cover_pic.url}} {% endif %}');">
+    
+    <div class="row">
+
+      <div class="col-lg-4 col-md-5">
+        <div class="avatar hover-effect bg-white shadow-sm p-1"><img {% if i.pro_pic %} src="{{i.pro_pic.url}}" {% endif %} width="200" height="200"/></div>
+      </div>
+      
+      <div class="col-lg-8 col-md-7 text-center text-md-start">
+        <h2 class="h1 ms-lg-3" data-aos="fade-left" data-aos-delay="0">{% if request.user %}{{request.user.username}}{% endif %}</h2>
+        <p data-aos="fade-left" data-aos-delay="100">{{i.title}}</p>
+      </div>
+    </div>
+  </div>
+{% endfor %}
+{% endif %}
+  <div class="text-end ">
+    <button type="button" class="btn bg-dark  fw-bold me-2 mt-2"><a class=" text-white text-decoration-none" href="{% url 'passwordchange' %}">Change password </a></button>
+  <button type="button" class="btn bg-dark  fw-bold me-2 mt-2"><a class=" text-white text-decoration-none" href="{% url 'logout' %}"> Logout </a></button>
+</div>
+  <div class="about-section pt-4 px-3 px-lg-4 mt-1">
+      
+
+      <!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+  Profile edit
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Profile edit</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      {% if detail %}
+      {% for i in detail %}
+      
+      <div class="modal-body">
+        <form class="form" action="" method="POST" enctype="multipart/form-data">
+          {% csrf_token %}
+          <img width="50%" class="m-auto" height="fit-content" src="{% if i.pro_pic %} {{i.pro_pic.url}} {% endif %}" alt=""> <br>
+          <label class="form-label" >profile pic :</label>
+          <input class="form-control w-25 m-auto" name="pro" type="file"> <br>
+
+          <img width="50%" class="m-auto" height="fit-content" src="{% if i.cover_pic %} {{i.cover_pic.url}} {% endif %}" alt=""> <br>
+          <label class="form-label" >cover pic :</label>
+          <input class="form-control w-25 m-auto" name="cover" type="file" > <br>
+
+          <label class="form-label" for="age">Age :</label>
+          <input class="form-control" name="eage" type="number" value="{{i.age}}"> <br>
+
+          <label class="form-label" for="email">Email :</label>
+          <input class="form-control" type="email" name="eemail" {% for ii in user_detail %} value="{{ii.email}}" {% endfor %}> <br>
+
+          <label class="form-label" for="number">Number :</label>
+          <input class="form-control" type="number" name="enumber" value="{{i.number}}"> <br>
+
+          <label class="form-label" for="address">Address :</label>
+          <input class="form-control" type="address" name="eaddress" value="{{i.adress}}"> <br>
+
+          <label class="form-label" for="number"> Describtion :</label>
+          <textarea class="form-control"  name="edescribtion" >{{i.describtion}}</textarea>
+          <button type="submit " class="btn btn-primary text-center m-2">Save changes</button>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+
+    <div class="row">
+      <div class="col-md-6 ">
+        <h2 class="h3 mb-3">{{i.title}}</h2>
+        <div>{{i.describtion}}</div>
+      </div>
+      
+      <div class="col-md-5 offset-md-1 ">
+        <div class="row mt-2">
+          <div class="col-sm-4">
+            <div class="pb-1">Age</div>
+          </div>
+          <div class="col-sm-8">
+            <div class="pb-1 text-secondary">{{i.age}}</div>
+          </div>
+          <div class="col-sm-4">
+            <div class="pb-1">Email</div>
+          </div>
+          <div class="col-sm-8">
+            <div class="pb-1 text-secondary">{% for ii in user_detail %} {{ii.email}} {% endfor %}</div>
+          </div>
+          <div class="col-sm-4">
+            <div class="pb-1">Phone</div>
+          </div>
+          <div class="col-sm-8">
+            <div class="pb-1 text-secondary">{{i.number}}</div>
+          </div>
+          <div class="col-sm-4">
+            <div class="pb-1">Address</div>
+          </div>
+          <div class="col-sm-8">
+            <div class="pb-1 text-secondary">{{i.adress}}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+  {% endif %}
+  <hr class="d-print-none"/>
+  <div class="skills-section px-3 px-lg-4">
+    <h2 class="h3 mb-3">Professional Skills</h2>
+    <div class="row">
+      <div class="col-md-6">
+        <div class="mb-2"><span>HTML</span>
+          <div class="progress my-1">
+            <div class="progress-bar bg-primary" role="progressbar" data-aos="zoom-in-right" data-aos-delay="100" data-aos-anchor=".skills-section" style="width: 95%" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"></div>
+          </div>
+        </div>
+        <div class="mb-2"><span>CSS</span>
+          <div class="progress my-1">
+            <div class="progress-bar bg-primary" role="progressbar" data-aos="zoom-in-right" data-aos-delay="200" data-aos-anchor=".skills-section" style="width: 85%" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100"></div>
+          </div>
+        </div>
+        <div class="mb-2"><span>JavaScript</span>
+          <div class="progress my-1">
+            <div class="progress-bar bg-primary" role="progressbar" data-aos="zoom-in-right" data-aos-delay="300" data-aos-anchor=".skills-section" style="width: 75%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="mb-2"><span>Python</span>
+          <div class="progress my-1">
+            <div class="progress-bar bg-success" role="progressbar" data-aos="zoom-in-right" data-aos-delay="400" data-aos-anchor=".skills-section" style="width: 80%" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"></div>
+          </div>
+        </div>
+        <div class="mb-2"><span>Django</span>
+          <div class="progress my-1">
+            <div class="progress-bar bg-success" role="progressbar" data-aos="zoom-in-right" data-aos-delay="500" data-aos-anchor=".skills-section" style="width: 85%" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100"></div>
+          </div>
+        </div>
+        <div class="mb-2"><span>bootstrap</span>
+          <div class="progress my-1">
+            <div class="progress-bar bg-success" role="progressbar" data-aos="zoom-in-right" data-aos-delay="600" data-aos-anchor=".skills-section" style="width: 75%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <hr class="d-print-none"/>
+  <div class="work-experience-section px-3 px-lg-4">
+    <h2 class="h3 mb-4">Work Experience</h2>
+    <div class="timeline">
+      <div class="timeline-card timeline-card-primary card shadow-sm">
+        <div class="card-body">
+          <div class="h5 mb-1">Frontend Developer <span class="text-muted h6">at Creative Agency</span></div>
+          <div class="text-muted text-small mb-2">May, 2015 - Present</div>
+          <div>Leverage agile frameworks to provide a robust synopsis for high level overviews. Iterative approaches to corporate strategy foster collaborative thinking to further the overall value proposition.</div>
+        </div>
+      </div>
+      <div class="timeline-card timeline-card-primary card shadow-sm">
+        <div class="card-body">
+          <div class="h5 mb-1">Graphic Designer <span class="text-muted h6">at Design Studio</span></div>
+          <div class="text-muted text-small mb-2">June, 2013 - May, 2015</div>
+          <div>Override the digital divide with additional clickthroughs from DevOps. Nanotechnology immersion along the information highway will close the loop on focusing solely on the bottom line.</div>
+        </div>
+      </div>
+      <div class="timeline-card timeline-card-primary card shadow-sm">
+        <div class="card-body">
+          <div class="h5 mb-1">Junior Web Developer <span class="text-muted h6">at Indie Studio</span></div>
+          <div class="text-muted text-small mb-2">Jan, 2011 - May, 2013</div>
+          <div>User generated content in real-time will have multiple touchpoints for offshoring. Organically grow the holistic world view of disruptive innovation via workplace diversity and empowerment.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <hr class="d-print-none"/>
+  <div class="page-break"></div>
+  <div class="education-section px-3 px-lg-4 pb-4">
+    <h2 class="h3 mb-4">Education</h2>
+    <div class="timeline">
+      <div class="timeline-card timeline-card-success card shadow-sm">
+        <div class="card-body">
+          <div class="h5 mb-1">Masters in Information Technology <span class="text-muted h6">from International University</span></div>
+          <div class="text-muted text-small mb-2">2011 - 2013</div>
+          <div>Leverage agile frameworks to provide a robust synopsis for high level overviews. Iterative approaches to corporate strategy foster collaborative thinking to further the overall value proposition.</div>
+        </div>
+      </div>
+      <div class="timeline-card timeline-card-success card shadow-sm">
+        <div class="card-body">
+          <div class="h5 mb-1">Bachelor of Computer Science <span class="text-muted h6">from Regional College</span></div>
+          <div class="text-muted text-small mb-2">2007 - 2011</div>
+          <div>Override the digital divide with additional clickthroughs from DevOps. Nanotechnology immersion along the information highway will close the loop on focusing solely on the bottom line.</div>
+        </div>
+      </div>
+      <div class="timeline-card timeline-card-success card shadow-sm">
+        <div class="card-body">
+          <div class="h5 mb-1">Science and Mathematics <span class="text-muted h6">from Mt. High Scool</span></div>
+          <div class="text-muted text-small mb-2">1995 - 2007</div>
+          <div>User generated content in real-time will have multiple touchpoints for offshoring. Organically grow the holistic world view of disruptive innovation via workplace diversity and empowerment.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endblock  %}
+      
+    </div>
+  </div>
+</div></div>
+    </div>
+    
+    <footer class="pt-4 pb-4 text-muted text-center d-print-none">
+      <div class="container">
+        <div class="my-3">
+          <div class="h4">{{request.user.username}}</div>
+          <div class="footer-nav">
+            <nav role="navigation">
+              <ul class="nav justify-content-center">
+                <li class="nav-item"><a class="nav-link" href="https://www.facebook.com/ssheikhsadi?mibextid=ZbWKwL" title="Facebook"><i class="fab fa-facebook"></i><span class="menu-title sr-only">Facebook</span></a>
+                </li>
+                <li class="nav-item"><a class="nav-link" href="https://instagram.com/sheikhsadishantu?igshid=YWYwM2I1ZDdmOQ==" title="Instagram"><i class="fab fa-instagram"></i><span class="menu-title sr-only">Instagram</span></a>
+                </li>
+                <li class="nav-item"><a class="nav-link" href="https://github.com/sheikh-sadi-shanto" title="Github"><i class="fab fa-github"></i><span class="menu-title sr-only">Github</span></a>
+                </li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+        <div class="text-small">
+          <div class="mb-1">&copy; Right Resume. All rights reserved.</div>
+          <div>Design by - <a href="" target="_blank">Sheikh Sadi</a></div>
+        </div>
+      </div>
+    </footer>
+
+
+
+    <script src="{% static 'app/js/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'app/js/aos.js' %}"></script>
+    <script src="{% static 'app/js/main.js' %}"></script>
+  </body>
+</html>

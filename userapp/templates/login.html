@@ -1,0 +1,38 @@
+<html lang="en">
+  {% load static %}
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="{% static 'app/css/css.css' %}" rel="stylesheet">
+  <title>Document</title>
+</head>
+
+<body>
+  <div class="container justify-content-center">
+    <div class="row my-3">
+     <div class="col-sm-6 offset-sm-3 text-center">
+      <h3 class="text-danger">Login</h3>
+      <p>{{message}}</p>
+      <hr>
+      <form action="" method="POST" novalidate class="shadow p-5">
+       {% csrf_token %}
+     <div class="mb-3 justify-content-center text-start">
+       {% for i in lform %}
+       {{i.label_tag}}
+      {{i}}
+      <br>
+      {% endfor %}
+      <div class="text-center ">
+       <small><a href="{% url 'passwordchange' %}">Forgot Password ?</a></small> <br>
+       <input type="submit" class="btn btn-primary mt-4" value="Login">
+       <br><br>
+       <div class="text-center text-primary fw-bold"><small>New to MyMedia ? <a href="{% url 'register' %}"
+          class="text-danger">Create an Account</a> </small></div>
+        </div>
+      </form>
+     </div>
+    </div>
+   </div>
+   
+</body>
+</html>

@@ -1,0 +1,53 @@
+<html lang="en">
+  {% load static %}
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="{% static 'app/css/css.css' %}" rel="stylesheet">
+  <title>Register</title>
+</head>
+<body>
+  <div class="container justify-content-center">
+    <div class="row my-3">
+     <div class="col-sm-6 offset-sm-3 text-center">
+      <h3 class="text-danger">Register</h3>
+      <hr>
+      <form action="" method="POST"  class="shadow p-5">
+            {% csrf_token %}
+       <div>
+        {% if messages %}
+        
+            {% for message in messages %}
+            <div  class=" bg-primary text-white text-center"><p>{{ message }}</p></div>
+            {% endfor %}
+        
+        {% endif %}
+
+       </div>
+     <div class="mb-3 justify-content-center text-start">
+       {% for i in rform %}
+       
+       {{i.label_tag}}
+      {{i}}
+
+      {% if i.errors %}
+      <small class="text-danger">{{i.errors | striptags}}</small> <br>
+      {% endif %}
+      <br>
+    
+    
+      {% endfor %}
+      
+      <div class="text-center ">
+       <input type="submit" class="btn btn-primary mt-4" value="Submit">
+       <br><br>
+       <div class="text-center text-primary fw-bold"><small>Already have account ? <a href="{% url 'login' %}"
+          class="text-danger">Login</a> </small></div>
+        </div>
+      </form>
+     </div>
+    </div>
+   </div>
+   
+</body>
+</html>
